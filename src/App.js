@@ -1,24 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import { useForm, FormProvider } from "react-hook-form";
+import Test from "./Test";
 
 function App() {
+  const methods = useForm();
+  const { register, handleSubmit } = methods;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit((data) => console.log(data))}>
+        <p>Check console log</p>
+        <label>Test</label>
+        <input {...register("test", { required: true })} />
+        <label>Nested Input</label>
+        <Test />
+        <input type="submit" />
+      </form>
+    </FormProvider>
   );
 }
 
